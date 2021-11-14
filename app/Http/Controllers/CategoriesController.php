@@ -48,7 +48,7 @@ class CategoriesController extends Controller
     public function show(Categorie $categorie)
     {
 
-       $vacancie = Vacancie::where('categorie_id', $categorie->id)->paginate(10);
+       $vacancie = Vacancie::where('categorie_id', $categorie->id)->where('activa', '0')->paginate(10);
         
        return view('categories.show', compact('vacancie','categorie'));
     }

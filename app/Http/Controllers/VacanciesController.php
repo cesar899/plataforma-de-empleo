@@ -30,7 +30,7 @@ class VacanciesController extends Controller
     public function index()
     {
         // $vacantes = auth()->user()->vacantes;
-        $vacantes = vacancie::where('user_id', auth()->user()->id )->Paginate(3);
+        $vacantes = vacancie::where('user_id', auth()->user()->id)->latest()->Paginate(3);
         
        return view('vacantes.index', compact('vacantes'));
     }
@@ -94,9 +94,10 @@ class VacanciesController extends Controller
      */
     public function show(Vacancie $vacancie, $id)
     {
-        $vacancie = vacancie::find($id);
-         
-       return view('vacantes.show', compact('vacancie'));
+      $vacancie = vacancie::find($id);  
+      
+      return view('vacantes.show', compact('vacancie'));
+
     }
 
     /**

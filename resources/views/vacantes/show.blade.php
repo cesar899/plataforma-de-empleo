@@ -43,6 +43,8 @@
            {!! $vacancie->description !!}
         </div>
       </div>
-      @include('ui.contacto')
+      @if($vacancie->Activa === 1)
+       @include('ui.contacto')
+      @endif
    </div>     
 @endsection
