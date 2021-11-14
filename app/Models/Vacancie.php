@@ -15,13 +15,13 @@ class Vacancie extends Model
     //Relacion 1:1 categoria y vacante
     public function categorie()
     {
-        return $this->belongsTo('App\Models\Categorie' );
+        return $this->belongsTo('App\Models\Categorie');
     }
 
     //Relacion 1:1 salario y vacante
     public function salary()
     {
-        return $this->belongsTo('App\Models\Salarie' );
+        return $this->belongsTo('App\Models\Salarie');
     }
 
     //Relacion 1:1 ubicacion y vacante
@@ -33,7 +33,7 @@ class Vacancie extends Model
     //Relacion 1:1 experien cia y vacante
     public function experience()
     {
-        return $this->belongsTo('App\Models\Experience' );
+        return $this->belongsTo('App\Models\Experience');
     }
 
     //relacion 1:1 reclutador y vacante

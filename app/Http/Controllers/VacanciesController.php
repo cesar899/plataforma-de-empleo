@@ -205,6 +205,38 @@ class VacanciesController extends Controller
 
       return response()->json(['respuesta' => 'correcto']);  
     }
+    public function search(Request $request)
+    {
+       //Validar 
+       $data = $request->validate([
+       'categorie' => 'required',
+       'ubication' => 'required'
+       ]);
+
+       //Asignar valor
+
+       $categorie = $data['categorie'];
+       $ubication = $data['ubication'];
+       
+       //fomar 1
+      // $vacancie = Vacancie::latest()
+    //           ->where('categorie_id', $categorie)
+      //         ->where('ubication_id', $ubication)
+        //       ->get();
+
+       // forma 2
+       $vacancie = Vacancie::where([
+        'categorie_id'=> $categorie,
+        'ubication_id' => $ubication
+       ])->get();
+
+      return view('search.index',compact('vacancie'));
+    }
+
+    public function result()
+    {
+      return "mostrano";
+    }
 }
 
 

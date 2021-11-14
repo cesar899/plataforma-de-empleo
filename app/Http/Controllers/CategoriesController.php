@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categoria;
+use App\Models\Categorie;
+use App\Models\Vacancie;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -44,9 +45,12 @@ class CategoriesController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function show(Categoria $categoria)
+    public function show(Categorie $categorie)
     {
-        //
+
+       $vacancie = Vacancie::where('categorie_id', $categorie->id)->paginate(10);
+        
+       return view('categories.show', compact('vacancie','categorie'));
     }
 
     /**
@@ -55,7 +59,7 @@ class CategoriesController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $categoria)
+    public function edit(Categorie $categorie)
     {
         //
     }
@@ -67,7 +71,7 @@ class CategoriesController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, Categorie $categorie)
     {
         //
     }
@@ -78,7 +82,7 @@ class CategoriesController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy(Categorie $categorie)
     {
         //
     }
