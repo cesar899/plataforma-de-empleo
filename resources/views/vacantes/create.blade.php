@@ -144,9 +144,9 @@
 @endsection
 
 @section('scripts')
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js" integrity="sha512-5D/0tAVbq1D3ZAzbxOnvpLt7Jl/n8m/YGASscHTNYsBvTcJnrYNiDIJm6We0RPJCpFJWowOPNz9ZJx7Ei+yFiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js" integrity="sha512-oQq8uth41D+gIH/NJvSJvVB85MFk1eWpMK6glnkg6I7EdMqC1XVkW7RxLheXwmFdG03qScCM7gKS/Cx3FYt7Tg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js" integrity="sha512-5D/0tAVbq1D3ZAzbxOnvpLt7Jl/n8m/YGASscHTNYsBvTcJnrYNiDIJm6We0RPJCpFJWowOPNz9ZJx7Ei+yFiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js" integrity="sha512-oQq8uth41D+gIH/NJvSJvVB85MFk1eWpMK6glnkg6I7EdMqC1XVkW7RxLheXwmFdG03qScCM7gKS/Cx3FYt7Tg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script>
      Dropzone.autoDiscover = false ;
      document.addEventListener('DOMContentLoaded', () => {
       
@@ -168,7 +168,6 @@
        })
        //llena el editor con el contenido del input hidden
        editor.setContent( document.querySelector('#description').value );
-
        //dropzone//  
        const dropzoneDevJobs = new Dropzone('#dropzoneDevJobs', {
           //url a dode se va a dirigir la imagen
@@ -190,7 +189,6 @@
                let imagePublic = {};
                imagePublic.size = 123456;
                imagePublic.name = document.querySelector('#image').value;
-
                //Para agregarlo a dropzone
                this.options.addedfile.call(this, imagePublic);
                this.options.thumbnail.call(this, imagePublic, `/storage/vacantes/${imagePublic.name}`);
@@ -204,10 +202,8 @@
              //console.log(response.correcto);
              //llevar aviso de valido al input
              document.querySelector('#error').textContent = '';
-
              //Coloca la respuesta del servidor al input hidden
               document.querySelector('#image').value = response.correcto;
-
              //Añadir el objeto de archivo el nombre del servidor
              file.nameServer = response.correcto; 
           },
@@ -231,9 +227,8 @@
              axios.post('remove', params )
                .then(respuesta => console.log(respuesta)) 
             }
-
          });
     
       });
-</script>
+   </script>
 @endsection
