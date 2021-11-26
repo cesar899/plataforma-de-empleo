@@ -16,10 +16,10 @@ class NewCandidate extends Notification
      *
      * @return void
      */
-    public function __construct( $vacancie, $id_vacancie )
+    public function __construct($vacancie , $id_vacancie)
     {
-      $this->vacancie = $vacancie;
-      $this->id_vacancie= $id_vacancie;
+     $this->vacancie = $vacancie;
+     $this->id_vacancie = $id_vacancie; 
     }
 
     /**
@@ -49,12 +49,12 @@ class NewCandidate extends Notification
     }
 
     //notificacion via database
-    public function toDatabase($notifiable)
-    {
-       return [
-           'vacancie' => $this->vacancie,
-           'id_vacancie' => $this->id_vacancie
-       ]; 
+   public function toDatabase($notifiable)
+   {
+     return [
+        'vacancie' => $this->vacancie,
+        'id_vacancie' => $this->id_vacancie
+        ]; 
     }
 
     /**

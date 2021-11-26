@@ -45,7 +45,7 @@
                              </status-vacancie>
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300 text-sm leading-5 text-gray-500">
-                              <a href="{{ route('candidatos.index', $item->id) }}" class="text-gray-500 hover:text-gray-600">
+                              <a href="{{ route('candidates.index', $item->id) }}" class="text-gray-500 hover:text-gray-600">
                               {{$item->candidate->count()}}  Candidatos</a>
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300 text-sm leading-5 font-medium">

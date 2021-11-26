@@ -6,6 +6,9 @@ use App\Models\Vacancie;
 use App\Models\candidate;
 use Illuminate\Http\Request;
 use App\Notifications\NewCandidate;
+use Illuminate\Support\Facades\Log;
+
+
 class CandidateController extends Controller
 {
     /**
@@ -15,8 +18,7 @@ class CandidateController extends Controller
      */
     public function index(Request $request)
     {
-       //Obtener el id actual 
-      // dd(d);
+     
       $id_vacancie = $request->route('id');
        
     //Obtener los candidatos y las vancantes 
@@ -50,47 +52,35 @@ class CandidateController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'cv' => 'required|mimes:pdf|max:4000',
+            'cv' => 'required',
             'vacancie_id' => 'required'
         ]);
 
       
 
         // Almacenar Archivo pdf
-        if($request->file('cv')){
-            $archivo = $request->file('cv');
-            $NombreArchivo = time() . "." . $request->file('cv')->extension();
-            $ubication = public_path('/storage/cv');
-            $archivo->move($ubication, $NombreArchivo);
+        if($request->file('cv'))
+        {
+           $archivo = $request->file('cv');
+           $nombreArchivo = time() . "." . $request->file('cv')->extension();
+           $ubicacion = public_path('storage\cv');
+           $archivo->move($ubicacion, $nombreArchivo);
         }
 
-      
-         //forma 1
-       // $candidate = new candidate();
-        //$candidate->name = $data['name'];
-       // $candidate->email = $data['email'];
-       // $candidate->cv = $NombreArchivo;
-       // $candidate->vacancie_id = $data['vacancie_id'];
-
-       // $candidate->save();
-
-       $vacancie = Vacancie::find($data['vacancie_id']);
+         $vacancie = Vacancie::find($data['vacancie_id']);
 
         $vacancie->candidate()->create([
           'name' => $data['name'],
           'email' => $data['email'],
-          'cv' => $NombreArchivo,
+          'cv' => $nombreArchivo,
        ]);
-     
 
-         $recruiters = $vacancie->recruiters;
-         $recruiters->notify( new NewCandidate( $vacancie->title,$vacancie->id) );
+       
+        $recruiters = $vacancie->recruiters;
+        $recruiters->notify( new NewCandidate($vacancie->title, $vacancie->id) );
+       
 
-        //forma 2 pero tiene que tener los campos de la bd el modelo
-        // $candidate = new candidate($data);
-        // $candidate->save();
-
-         return back()->with('msj', 'Tus datos se registraron Correctamente! Suerte');
+       return back()->with('msj', 'Tus datos se registraron Correctamente! Suerte');
     }
 
     /**

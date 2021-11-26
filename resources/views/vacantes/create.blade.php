@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section( 'styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/css/medium-editor.css" integrity="sha512-iWJx03fFJWrXXXI6ctpoVaLkB6a4yf9EHNURLEEsLxGyup43eF6LrD3FSPdt1FKnGSE8Zp7JZYEDbATHf1Yx8Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css" integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/css/medium-editor.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css" />
 @endsection
 
 @section('navegacion')
@@ -139,86 +139,96 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js" integrity="sha512-5D/0tAVbq1D3ZAzbxOnvpLt7Jl/n8m/YGASscHTNYsBvTcJnrYNiDIJm6We0RPJCpFJWowOPNz9ZJx7Ei+yFiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js" integrity="sha512-oQq8uth41D+gIH/NJvSJvVB85MFk1eWpMK6glnkg6I7EdMqC1XVkW7RxLheXwmFdG03qScCM7gKS/Cx3FYt7Tg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
 <script>
-   Dropzone.autoDiscover = false;
-   document.addEventListener('DOMContentLoaded', () => {
-      //Medim Editor//
-      const editor = new MediumEditor('.editable', {
-         toolbar: {
-            buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedList', 'unorderedList', 'h2', 'h3'],
-            static: true,
-            sticky: true,
+  Dropzone.autoDiscover = false ;
+     document.addEventListener('DOMContentLoaded', () => {
+      
+        //Medim Editor//
+       const editor = new MediumEditor('.editable', {
+          toolbar : {
+             buttons : ['bold', 'italic', 'underline','quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedList', 'unorderedList', 'h2', 'h3'],
+             static : true,
+             sticky : true,
          },
-         placeholder: {
-            text: 'Informacion de la Vacante'
+         placeholder : {
+            text : 'Informacion de la Vacante'
          }
-      });
-      //Agrega al input hidde lo que el usuario agrega en mediun editor
-      editor.subscribe('editableInput', function(eventObj, editable) {
-         const contenido = editor.getContent();
-         document.querySelector('#description').value = contenido;
-      })
-      //llena el editor con el contenido del input hidden
-      editor.setContent(document.querySelector('#description').value);
-      //dropzone//  
-      const dropzoneDevJobs = new Dropzone('#dropzoneDevJobs', {
-         //url a dode se va a dirigir la imagen
-         url: "image",
-         //cambiar placeholder a español
-         dictDefaultMessage: 'Sube tu archivo',
-         //Que acepte solo imagenes
-         acceptedFiles: ".png,.jpg,.jpeg,.gif,.bmp",
-         //para eliminar foto asignada
-         addRemoveLinks: true,
-         //asignar nombre al remove
-         dictRemoveFile: 'eliminar archivo',
-         maxFiles: 1,
-         headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
-         },
-         init: function() {
-            if (document.querySelector('#image').value.trim()) {
+       });
+       //Agrega al input hidde lo que el usuario agrega en mediun editor
+       editor.subscribe('editableInput', function(eventObj, editable) {
+          const contenido =  editor.getContent();
+          document.querySelector('#description').value = contenido;
+       })
+       //llena el editor con el contenido del input hidden
+       editor.setContent( document.querySelector('#description').value );
+
+       //dropzone//  
+       const dropzoneDevJobs = new Dropzone('#dropzoneDevJobs', {
+          //url a dode se va a dirigir la imagen
+          url: "vacantes/image",
+          //cambiar placeholder a español
+          dictDefaultMessage: 'Sube tu archivo',
+          //Que acepte solo imagenes
+          acceptedFiles: ".png,.jpg,.jpeg,.gif,.bmp", 
+          //para eliminar foto asignada
+          addRemoveLinks: true, 
+          //asignar nombre al remove
+          dictRemoveFile: 'eliminar archivo',
+          maxFiles: 1,
+          headers:{
+             'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+          },
+          init: function() {
+            if(document.querySelector('#image').value.trim() ) {
                let imagePublic = {};
                imagePublic.size = 123456;
                imagePublic.name = document.querySelector('#image').value;
+               document.querySelector('#image').value;
+
                //Para agregarlo a dropzone
                this.options.addedfile.call(this, imagePublic);
                this.options.thumbnail.call(this, imagePublic, `/storage/vacantes/${imagePublic.name}`);
+              
                imagePublic.previewElement.classList.add('dz-success');
                imagePublic.previewElement.classList.add('dz-complete');
+               
             }
-         },
-         success: function(file, response) {
-            //para probar que se suban correctamente en el servidor
-            //console.log(response.correcto);
-            //llevar aviso de valido al input
-            document.querySelector('#error').textContent = '';
-            //Coloca la respuesta del servidor al input hidden
-            document.querySelector('#image').value = response.correcto;
-            //Añadir el objeto de archivo el nombre del servidor
-            file.nameServer = response.correcto;
-         },
-         //funcion para aceptar solo 1 imagen
-         maxfilesexceeded: function(file) {
-            //if para que borre una imagen al querer subir 2
-            if (this.files[1] != null) {
-               this.removeFile(this.files[0]); //Elimina el archivo anterior
-               this.addFile(file); //Esto agrega el nuevo archivo
+          },
+          success: function(file, response) {
+             //para probar que se suban correctamente en el servidor
+             //console.log(response.correcto);
+             //llevar aviso de valido al input
+             document.querySelector('#error').textContent = '';
+
+             //Coloca la respuesta del servidor al input hidden
+              document.querySelector('#image').value = response.correcto;
+
+             //Añadir el objeto de archivo el nombre del servidor
+             file.nameServer = response.correcto; 
+          },
+          //funcion para aceptar solo 1 imagen
+          maxfilesexceeded: function(file) {
+             //if para que borre una imagen al querer subir 2
+             if( this.files[1] != null ) {
+                this.removeFile(this.files[0]); //Elimina el archivo anterior
+                this.addFile(file); //Esto agrega el nuevo archivo
+             }
+          },
+          removedfile: function(file, response) {
+             console.log('el archivo fue borrado: ', file);
+             file.previewElement.parentNode.removeChild(file.previewElement);
+                
+             params = {
+                image: file.nameServer  
+             }
+            
+             //eliminar archivo
+             axios.post('vacantes/remove', params )
+               .then(respuesta => console.log(respuesta)) 
             }
-         },
-         removedfile: function(file, response) {
-            //console.log('el archivo fue borrado: ', file);
-            file.previewElement.parentNode.removeChild(file.previewElement);
-            params = {
-               image: file.nameServer ?? document.querySelector('#image').value
-            }
-            //eliminar archivo
-            axios.post('remove', params)
-               .then(respuesta => console.log(respuesta))
-         }
+         });
       });
-   });
-</script>
+   </script>
 @endsection

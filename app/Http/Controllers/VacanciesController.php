@@ -11,16 +11,14 @@ use App\Models\Ubication;
 use App\Models\Experience;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class VacanciesController extends Controller
 {
 
     public function __construct()
     {
-        //eliminar constructor al finalizar el projecto
-        //Revisar que el usuario este autenticado y verificado// 
-        // $this->middleware(['auth','verified']);
-        $this->middleware(['auth']);
+     $this->middleware(['auth','verified']);
     }
     /**
      * Display a listing of the resource.
@@ -29,10 +27,9 @@ class VacanciesController extends Controller
      */
     public function index()
     {
-        // $vacantes = auth()->user()->vacantes;
-        $vacantes = vacancie::where('user_id', auth()->user()->id)->latest()->Paginate(3);
+      $vacantes = vacancie::where('user_id', auth()->user()->id)->latest()->Paginate(3);
         
-       return view('vacantes.index', compact('vacantes'));
+      return view('vacantes.index', compact('vacantes'));
     }
 
     /**
@@ -42,13 +39,13 @@ class VacanciesController extends Controller
      */
     public function create()
     {
-        //Cosulta a la bd
-        $categories = Categorie::all();
-        $experiences = Experience::all();
-        $ubications = Ubication::all();
-        $salary = Salarie::all();
+       
+      $categories = Categorie::all();
+      $experiences = Experience::all();
+      $ubications = Ubication::all();
+      $salary = Salarie::all();
         
-        return view('vacantes.create', compact('categories','experiences','ubications', 'salary'));
+      return view('vacantes.create', compact('categories','experiences','ubications', 'salary'));
     }
 
     /**
@@ -59,31 +56,31 @@ class VacanciesController extends Controller
      */
     public function store(Request $request)
     {
-        //Validacion
-        $data = $request->validate([
-          'title' => 'required|min:8',
-          'categorie' => 'required',
-          'experience' => 'required',
-          'ubication' => 'required',
-          'salary' => 'required',
-          'description' => 'required|min:50',
-          'image' => 'required',
-          'skills' => 'required',
-        ]);
+        
+      $data = $request->validate([
+        'title' => 'required|min:8',
+        'categorie' => 'required',
+        'experience' => 'required',
+        'ubication' => 'required',
+        'salary' => 'required',
+        'description' => 'required|min:50',
+        'image' => 'required',
+        'skills' => 'required',
+      ]);
 
-        // Almacenar vacante en la bd 
-        auth()->user()->vacantes()->create([
-            'title' => $data['title'],
-            'image' => $data['image'],
-            'description' => $data['description'],
-            'skills' => $data['skills'],
-            'categorie_id' => $data['categorie'],
-            'experience_id' => $data['experience'],
-            'ubication_id' => $data['ubication'],
-            'salary_id' => $data['salary'],
-        ]);
+        
+      auth()->user()->vacantes()->create([
+        'title' => $data['title'],
+        'image' => $data['image'],
+        'description' => $data['description'],
+        'skills' => $data['skills'],
+        'categorie_id' => $data['categorie'],
+        'experience_id' => $data['experience'],
+        'ubication_id' => $data['ubication'],
+        'salary_id' => $data['salary'],
+      ]);
 
-       return redirect( route('vacantes.index'));
+      return redirect( route('vacantes.index'));
     }
 
     /**
@@ -97,7 +94,6 @@ class VacanciesController extends Controller
       $vacancie = vacancie::find($id);  
       
       return view('vacantes.show', compact('vacancie'));
-
     }
 
     /**
@@ -108,14 +104,14 @@ class VacanciesController extends Controller
      */
     public function edit(Vacancie $vacancie)
     {
-        $this->authorize('view', $vacancie);
-          //Cosulta a la bd
-        $categories = Categorie::all();
-        $experiences = Experience::all();
-        $ubications = Ubication::all();
-        $salary = Salarie::all();
+      $this->authorize('view', $vacancie);
+         
+      $categories = Categorie::all();
+      $experiences = Experience::all();
+      $ubications = Ubication::all();
+      $salary = Salarie::all();
 
-        return view('vacantes.edit', compact('vacancie','categories','experiences','ubications', 'salary'));
+      return view('vacantes.edit', compact('vacancie','categories','experiences','ubications', 'salary'));
     }
 
     /**
@@ -127,34 +123,33 @@ class VacanciesController extends Controller
      */
     public function update(Request $request, Vacancie $vacancie)
     {
-        $this->authorize('update', $vacancie);
-        //Validacion
-        $data = $request->validate([
-          'title' => 'required|min:8',
-          'categorie' => 'required',
-          'experience' => 'required',
-          'ubication' => 'required',
-          'salary' => 'required',
-          'description' => 'required|min:50',
-          'image' => 'required',
-          'skills' => 'required',
-        ]);
+      $this->authorize('update', $vacancie);
+      //Validacion 
+      $data = $request->validate([
+        'title' => 'required|min:8',
+        'categorie' => 'required',
+        'experience' => 'required',
+        'ubication' => 'required',
+        'salary' => 'required',
+        'description' => 'required|min:50',
+        'image' => 'required',
+        'skills' => 'required',
+      ]);
 
-        // Almacenar vacante en la bd 
+      // Almacenar vacante en la bd 
       
-            $vacancie->title = $data['title'];
-            $vacancie->image = $data['image'];
-            $vacancie->description = $data['description'];
-            $vacancie->skills = $data['skills'];
-            $vacancie->categorie_id = $data['categorie'];
-            $vacancie->experience_id = $data['experience'];
-            $vacancie->ubication_id = $data['ubication'];
-            $vacancie->salary_id = $data['salary'];
+      $vacancie->title = $data['title'];
+      $vacancie->image = $data['image'];
+      $vacancie->description = $data['description'];
+      $vacancie->skills = $data['skills'];
+      $vacancie->categorie_id = $data['categorie'];
+      $vacancie->experience_id = $data['experience'];
+      $vacancie->ubication_id = $data['ubication'];
+      $vacancie->salary_id = $data['salary'];
 
-            $vacancie->save();
+      $vacancie->save();
 
-            return redirect( route('vacantes.index'));
-        
+      return redirect( route('vacantes.index'));     
     }
 
     /**
@@ -166,23 +161,23 @@ class VacanciesController extends Controller
     public function destroy(Vacancie $vacancie)
     {
        $this->authorize('delete', $vacancie);
-      //return response()->json($vacancie);
+      
         $vacancie->delete();
         return  response()->json(['mensaje' => 'Se elimino la vacante ' . $vacancie->title]);
     }
+
     //Campos extras
     public function image(Request $request)
-    {    
+    {   
         //Lee el archivo
         $image = $request->file('file');
         //Toma la extansion ygenera un nombre 
         $nombreImage = time() . '.' . $image->extension();
         //Mueve el archivo temporal a la carpeta storage/vacantes con el nombre
         $image->move(public_path('storage/vacantes'), $nombreImage);
-        return response()->json(['correcto' =>  $nombreImage ]);
+        return response()->json(['correcto' =>  $nombreImage ]);   
     }
-
-    //Borrar imagen Via Ajax
+     //Borrar imagen Via Ajax
     public function removeImage(Request $request)
     {
         if(  $request->ajax()) {
@@ -219,13 +214,7 @@ class VacanciesController extends Controller
        $categorie = $data['categorie'];
        $ubication = $data['ubication'];
        
-       //fomar 1
-      // $vacancie = Vacancie::latest()
-    //           ->where('categorie_id', $categorie)
-      //         ->where('ubication_id', $ubication)
-        //       ->get();
-
-       // forma 2
+       
        $vacancie = Vacancie::where([
         'categorie_id'=> $categorie,
         'ubication_id' => $ubication
@@ -239,5 +228,6 @@ class VacanciesController extends Controller
       return "mostrano";
     }
 }
+
 
 

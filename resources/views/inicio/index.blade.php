@@ -15,11 +15,11 @@
 		@include('ui.buscar')
 	</div>
 	<div class="block lg:w-1/2">
-		<img class="inset-0 h-full  w-full" src="{{ asset('img/imagen.jpg') }}" alt="devjobs">
+		<img class="inset-0 h-full w-full object-cover" src="{{ asset('img/imagen.jpg') }}" alt="devjobs">	
 	</div>
 </div>
 
- <!-- <div class="my-10 bg-gray-100 p-10 shadow">
+<div class="my-10 bg-gray-100 p-10 shadow">
 	<h1 class="text-3xl text-gray-700 m-0">
 		Nuevas
 		<span class="font-bold">Vacantes</span>
