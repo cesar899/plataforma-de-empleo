@@ -59,20 +59,27 @@ Route::prefix('vacantes')->group(function ()
  //crear una vacante
  Route::get('/create', [VacanciesController::class, 'create'])->name('vacantes.create');
  Route::post('/', [VacanciesController::class, 'store'])->name('vacantes.store');
+ 
 
+ //cambiar estado de la vacantes
+ Route::post('/{vacancie}',[VacanciesController::class, 'status'])->name('vacantes.status');
+ //subir imagenes
+ Route::post('/image',[VacanciesController::class, 'image'])->name('vacantes.image');
+ //borrar imagen
+ Route::post('/remove',[VacanciesController::class, 'removeImage'])->name('vacantes.remove');
  //muestra empleos sin auteticacion
+ 
  Route::get('/busqueda/search',[VacanciesController::class, 'result'])->name('vacantes.result');
  Route::post('busqueda/search',[VacanciesController::class, 'search'])->name('vacantes.search');
  Route::get('/{vacante}',[VacanciesController::class, 'show'])->name('vacantes.show');
  Route::delete('/{vacancie}',[VacanciesController::class, 'destroy'])->name('vacantes.destroy');
  Route::get('/{vacancie}/edit', [VacanciesController::class,'edit'])->name('vacantes.edit');
  Route::put('/{vacancie}', [VacanciesController::class, 'update'])->name('vacantes.update');
+ 
  //subir imagenes
  Route::post('/image',[VacanciesController::class, 'image'])->name('vacantes.image');
  //borrar imagen
  Route::post('/remove',[VacanciesController::class, 'removeImage'])->name('vacantes.remove');
- //cambiar estado de la vacantes
-  Route::post('/{vacancie}',[VacanciesController::class, 'status'])->name('vacantes.status');
 
 });
  

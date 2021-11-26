@@ -45,6 +45,8 @@
       </div>
       @if($vacancie->Activa === 1)
        @include('ui.contacto')
+      @else
+       <p>Esta vacante no se encuentra disponible</p>
       @endif
    </div>     
 @endsection

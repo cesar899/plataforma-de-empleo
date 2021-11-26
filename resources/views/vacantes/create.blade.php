@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section( 'styles')
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/css/medium-editor.css" integrity="sha512-iWJx03fFJWrXXXI6ctpoVaLkB6a4yf9EHNURLEEsLxGyup43eF6LrD3FSPdt1FKnGSE8Zp7JZYEDbATHf1Yx8Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css" integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/css/medium-editor.css"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css"/>
 @endsection
 
 @section('navegacion')
@@ -109,7 +109,7 @@
       <div class="mb-5">
          <label for="image" class="block text-gray-700 text-sm mb-2">Imagen de la Vacante :</label>
          <div id="dropzoneDevJobs" class="dropzone rounded  bg-gray-100"></div>
-         <input type="hidden" name="image" id="image" value="{{ old('image')}}">
+         <input type="hidden" name="image" id="image" value="{{ old('image') }}">
          @error('image')
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6" role="alert">
               <strong class="font-bold">Error!</strong>
@@ -144,8 +144,8 @@
 @endsection
 
 @section('scripts')
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js" integrity="sha512-5D/0tAVbq1D3ZAzbxOnvpLt7Jl/n8m/YGASscHTNYsBvTcJnrYNiDIJm6We0RPJCpFJWowOPNz9ZJx7Ei+yFiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js" integrity="sha512-oQq8uth41D+gIH/NJvSJvVB85MFk1eWpMK6glnkg6I7EdMqC1XVkW7RxLheXwmFdG03qScCM7gKS/Cx3FYt7Tg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
    <script>
      Dropzone.autoDiscover = false ;
      document.addEventListener('DOMContentLoaded', () => {
@@ -199,7 +199,7 @@
           },
           success: function(file, response) {
              //para probar que se suban correctamente en el servidor
-             //console.log(response.correcto);
+            // console.log(response.correcto);
              //llevar aviso de valido al input
              document.querySelector('#error').textContent = '';
              //Coloca la respuesta del servidor al input hidden
@@ -221,14 +221,13 @@
             
              params = {
                 image: file.nameServer ?? document.querySelector('#image').value
-             }
+            }
             
              //eliminar archivo
              axios.post('remove', params )
                .then(respuesta => console.log(respuesta)) 
             }
          });
-    
-      });
+      })
    </script>
 @endsection
