@@ -1,9 +1,7 @@
 <template>
-
-   <buttom class="text-red-600 hover:text-blue-900 mr-5"
-  				 @click="DeleteVacancie"
-   >Eliminar</buttom>
-
+   <a class="text-red-600 hover:text-blue-900 mr-5"
+  	  @click="DeleteVacancie"
+   >Eliminar</a>
 </template>
 
 <script>

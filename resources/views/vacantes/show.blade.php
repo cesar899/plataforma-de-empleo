@@ -5,7 +5,14 @@
 @endsection
 
 @section('content')
- <h1 class="text-3xl text-center mt-10"> {{$vacancie->title}}</h1>
+
+@if(Auth::user())
+ <a href="{{ route('vacantes.index') }}" type="buttom" class="bg-green-500 w-full hover:bg-green-600 text-gray-100 font-bold p-3 focus:outline-none focus:shadow-outline uppercase mt-10 rounded">atras</a> 
+@else
+  <a href="{{ route('inicio') }}" type="buttom" class="bg-green-500 w-full hover:bg-green-600 text-gray-100 font-bold p-3 focus:outline-none focus:shadow-outline uppercase mt-10 rounded">atras</a> 
+@endif
+
+ <h1 class="text-3xl text-center mt-10">vacante : {{$vacancie->title}}</h1>
   <div class="mt-10 mb-20 md:flex items-start">
      <div class="md:w-3/5">
         <p class="block text-gray-700 font-bold my-2">
@@ -37,16 +44,20 @@
         @endforeach 
         {{-- lightbox2 --}}
         <a href="/storage/vacantes/{{$vacancie->image}}" data-lightbox="image" data-title="Vacante {{$vacancie->title}}">
-           <img src="/storage/vacantes/{{$vacancie->image}}" class="mt-10">
+           <img src="/storage/vacantes/{{$vacancie->image}}" class="mt-10" height="100px" width="200px">
         </a>
         <div class="description mt-10 mb-5">
            {!! $vacancie->description !!}
         </div>
       </div>
-      @if($vacancie->Activa === 1)
+      @if($vacancie->Activa === 0)
        @include('ui.contacto')
       @else
-       <p>Esta vacante no se encuentra disponible</p>
+        <div class="py-10 mt-20">
+          <div class="mt-20">
+            <h1 class="text-3xl text-center"> Vacante no disponible (Inactiva)</h1>   
+          </div>
+        </div>
       @endif
    </div>     
 @endsection

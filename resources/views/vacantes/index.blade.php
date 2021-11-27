@@ -40,7 +40,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
                              <status-vacancie
-                                 estado = "{{$item->activa}}"
+                                 estado = "{{$item->Activa}}"
                                  vacancie-id="{{$item->id}}">
                              </status-vacancie>
                             </td>
@@ -52,7 +52,7 @@
                                 <a href="{{ route('vacantes.edit', $item->id) }}" class="text-green-600 hover:text-blue-900 mr-5">Editar</a>
 
                                 <delete-vacancie
-                                vacancie-id={{$item->id}}
+                                vacancie-id="{{$item->id}}"
                                 ></delete-vacancie>
 
                                 <a href="{{ route('vacantes.show', $item->id) }}" class="text-blue-600 hover:text-blue-900">Ver</a>

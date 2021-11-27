@@ -19,7 +19,7 @@ class CreateVacanciesTable extends Migration
             $table->string('image');
             $table->text('description');
             $table->text('skills');
-            $table->boolean('Activa')->default(true);
+            $table->boolean('Activa')->default(0)->commen('0 - activa, 1- inactiva');
             $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
             $table->foreignId('experience_id')->constrained()->onDelete('cascade');
             $table->foreignId('ubication_id')->constrained()->onDelete('cascade');

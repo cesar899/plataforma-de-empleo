@@ -15,11 +15,6 @@ use Illuminate\Support\Facades\Log;
 
 class VacanciesController extends Controller
 {
-
-    public function __construct()
-    {
-     $this->middleware(['auth','verified']);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -191,15 +186,15 @@ class VacanciesController extends Controller
         }
     }
     //cambia el estado de una vacante
-    public function status(Request $request, Vacancie $vacancie)
+    public function estado(Request $request, Vacancie $vacancie)
     {
 
       //Leer nuevo estado y asignarlo
-      $vacancie->activa = $request->estado;
+      $vacancie->Activa = $request->estado;
       //guardarlo a la bd  
       $vacancie->save();
 
-      return response()->json(['respuesta' => 'correcto']);  
+      return response()->json($vacancie);  
     }
     public function search(Request $request)
     {

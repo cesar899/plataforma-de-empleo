@@ -32,7 +32,7 @@
     @endif
 
     <div id="app">
-        <nav class="bg-gray-800 shadow-md p-5">
+        <nav class="bg-gray-800 shadow-md py-3">
             <div class="container mx-auto md:px-0">
                 <div class="flex items-center justify-around">
                     <a class="text-2xl text-white" href="{{ url('/') }}">
@@ -60,21 +60,14 @@
                         @endguest
                     </nav>
                 </div>
-
+              
             </div>
         </nav>
-
-        <nav class="bg-gray-700 text-white body-font 
-      mx-auto
-      flex flex-wrap
-      p-4
-      flex-col
-      md:flex-row
-      items-center">
+        <div>
+            <nav class="bg-gray-700 text-white body-font  mx-auto flex flex-wrap p-0 flex-col md:flex-row items-center">
             @yield('navegacion')
-        </nav>
-        </header>
-
+            </nav>
+        </div>        
         <main class="mt-10 container mx-auto">
             @yield('content')
         </main>

@@ -25,5 +25,5 @@
 		<span class="font-bold">Vacantes</span>
 	</h1>
 	@include('ui.ListadoVacantes')
-</div>  -->
+</div>  
 @endsection

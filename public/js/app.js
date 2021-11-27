@@ -2082,8 +2082,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['vacancieId'],
   methods: {
@@ -2240,7 +2238,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     ClaseEstadoVacancie: function ClaseEstadoVacancie() {
-      return this.estadoVacancieData === 1 ? " bg-green-100 text-green-800" : " bg-red-100 text-red-800";
+      return this.estadoVacancieData === 0 ? " bg-green-100 text-green-800" : " bg-red-100 text-red-800";
     },
     CambiarEstado: function CambiarEstado() {
       if (this.estadoVacancieData === 1) {
@@ -2253,7 +2251,7 @@ __webpack_require__.r(__webpack_exports__);
       var params = {
         estado: this.estadoVacancieData
       };
-      axios.post('/vacantes/' + this.vacancieId, params).then(function (respuesta) {
+      axios.post('vacantes/' + this.vacancieId, params).then(function (respuesta) {
         return console.log(respuesta);
       })["catch"](function (error) {
         return console.log(error);
@@ -2262,7 +2260,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     estadoVacancie: function estadoVacancie() {
-      return this.estadoVacancieData === 1 ? 'Activa' : 'inactiva';
+      return this.estadoVacancieData === 0 ? 'Activa' : 'inactiva';
     }
   }
 });
@@ -38947,7 +38945,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "buttom",
+    "a",
     {
       staticClass: "text-red-600 hover:text-blue-900 mr-5",
       on: { click: _vm.DeleteVacancie }

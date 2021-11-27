@@ -17,7 +17,8 @@
 		    @include('ui.ListadoVacantes')
 	    </div>
     @else
-      <p class="text-center text-gray-700">No hay vacantes disponible de tu busqueda</p>
+     <a href="{{ route('inicio') }}" type="buttom" class="bg-green-500 w-full hover:bg-green-600 text-gray-100 font-bold p-3 focus:outline-none focus:shadow-outline uppercase mt-10 rounded">atras</a>
+      <p class="text-center text-gray-700 mt-2">No hay vacantes disponible de tu busqueda</p>
     @endif	
 
 @endsection

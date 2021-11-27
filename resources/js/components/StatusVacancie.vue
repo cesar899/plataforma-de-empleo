@@ -19,28 +19,27 @@
     },
     methods: {
      ClaseEstadoVacancie(){
-       return this.estadoVacancieData === 1 ? " bg-green-100 text-green-800" : " bg-red-100 text-red-800"
+       return this.estadoVacancieData === 0 ? " bg-green-100 text-green-800" : " bg-red-100 text-red-800"
      },
      CambiarEstado() {
 	      if(this.estadoVacancieData === 1){
 	        this.estadoVacancieData = 0;
 	      } else {
-	        this.estadoVacancieData = 1;
-	      }
-
+          this.estadoVacancieData = 1;
+        }
 	      //enviar peticion a axios 
 	      const params = {
-	       	estado:  this.estadoVacancieData
+	       	estado: this.estadoVacancieData
 	      }
 	      axios
-	        .post( '/vacantes/' + this.vacancieId, params)
+	        .post('vacantes/' + this.vacancieId, params)
 	        .then(respuesta => console.log(respuesta))
 	        .catch(error => console.log(error))
         }
     },
     computed: {
 	    estadoVacancie() {
-            return this.estadoVacancieData === 1 ? 'Activa' : 'inactiva'
+            return this.estadoVacancieData === 0 ? 'Activa' : 'inactiva'
 	    }
     }
  }
