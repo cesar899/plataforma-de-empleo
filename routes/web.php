@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Auth;
 */
 
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 //rutas protegidas 
-Route::group(['middleware' => ['auth', 'verify']], function(){
+Route::group(['middleware' => 'auth'], function(){
 
 Route::prefix('vacantes')->group(function () {
 
